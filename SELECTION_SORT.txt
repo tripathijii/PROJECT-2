@@ -1,0 +1,64 @@
+#include<stdio.h>
+#define MAX 10
+int sort[MAX];
+int n;
+void create()
+{   int i;
+    printf("\n ENTER THE NO OF ELEMNET YOU WANT (MAX 10):\t");
+    scanf("%d",&n);
+    printf("\n ENTER THE ARRAY:\t");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&sort[i]);
+    }
+}
+void sorting()
+{
+    int i,j,tmp,min;
+    for(i=0;i<n-1;i++)
+    {    min=i;
+        for(j=i+1;j<n;j++)
+        {
+            if(sort[j]<sort[min])
+            {
+               min=j;
+            }
+        }
+         tmp=sort[i];
+         sort[i]=sort[min];
+         sort[min]=tmp;
+    }
+}
+void display()
+{
+    int i;
+    printf("\n SORTED ARRAY BE LIKE:\t");
+    printf("|");
+    for(i=0;i<n;i++)
+    {
+        printf(" %d |",sort[i]);
+    }
+}
+int main()
+{
+    int ch;
+    printf("\n\t\t OUTPUT BY ADITYA TRIPATHI");
+    while(1)
+    {
+        printf("\n ENTER YOUR CHOICE \n 1.ENTER ARRAY \n 2.SORT ARRAY \n 3.DISPLAY ARRAY \n 4.EXIT:\t\t");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:create();
+            break;
+            case 2:sorting();
+            break;
+            case 3:display();
+            break;
+            case 4:exit(0);
+            break;
+            default:printf("\n WRONG CHOICE");
+        }
+    }
+}
+
