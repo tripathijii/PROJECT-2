@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    int data;
+    struct node *next;
+}node;
+int create_cl_linklist();
+void insert_cl_linklist();
+void delete_cl_linklist();
+int main()
+{
+    char ch='y';
+    int m;
+    while(ch=='y'||ch=='Y')
+    {
+        printf("\n ENTER THE CHOICE\n 1.CREATE CIRCULAR LINKLIST(ENTER 1) \n 2.INSERTION IN CIRCULAR LINKLIST(ENTER 2) \n 3.DELETION IN CIRCULAR LINKLIST(ENTER 3):\t");
+        scanf("%d",&m);
+        switch(m)
+        {
+            case 1: create_cl_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            case 2: insert_cl_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            case 3: delete_cl_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            default: printf("WRONG CHOICE!! \n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+        }
+    }
+}
+int create_cl_linklist()
+{
+   int i,n;
+   node *A,*HEAD=NULL;
+   printf("ENTER THE NUMBER OF NODES TO BE CREATED FOR CLL:");
+   scanf("\t%d",&n);
+   for(i=1;i<=n;i++)
+   {
+       if(HEAD==NULL)
+       {
+           A=(node*)malloc(sizeof(node));
+           HEAD=A;
+           printf("\n ENTER THE VALUE TO BE ENTERED:-");
+           scanf("\t%d",&HEAD->data);
+           HEAD->next=HEAD;
+       }
+       else
+       {
+           A->next=(node*)malloc(sizeof(node));
+           A=A->next;
+           printf("\n ENTER THE VALUE TO BE ENTERED:-");
+           scanf("\t%d",&A->data);
+           A->next=HEAD;
+       }
+   }
+       A=HEAD;
+       do{   
+            printf("%d\t ", A->data);  
+            A = A->next;  
+        }while(A != HEAD);
+        return HEAD;
+   }
+void insert_cl_linklist()
+{
+    int i,num,ch=0;
+    node *A,*HEAD,*B,*C;
+    A=create_cl_linklist();
+    HEAD=A;
+       while(A->next!=HEAD)
+       {
+           ++ch;
+           A=A->next;
+       }
+        C=A;
+        A=HEAD;
+    printf("\n ENTER THE NODE WHERE YOU WANT TO INSERT:\n(for end enter number greater than node)\t");
+    scanf("%d",&num);
+    B=(node*)malloc(sizeof(node));
+    printf("\n ENTER THE VALUE TO BE STORED:-\t");
+    scanf("%d",&B->data);
+    if(num==1)
+    {
+        C->next=B;
+        B->next=HEAD;
+        HEAD=B;
+    }
+    else if(num==(ch+2))
+    {
+        C->next=B;
+        B->next=HEAD;
+    }
+    else if(num>1&&num<(ch+2)){
+    for(i=1;i<=ch;i++)
+    {
+        if(i==num)
+        {
+            B->next=A;
+            C->next=B;
+            break;
+        }
+        else
+        {
+            C=A;
+            A=A->next;
+        }
+    }
+    }
+    printf("\n CIRCULAR LINK LIST AFTER INSERTION IS:-\t");
+     A=HEAD;
+       do{   
+            printf("%d\t ", A->data);  
+            A = A->next;  
+        }while(A != HEAD);  
+
+}
+void delete_cl_linklist()
+{
+    int i,num,ch=0;
+    node *A,*HEAD,*B,*C;
+    A=create_cl_linklist();
+    HEAD=A;
+     while(A->next!=HEAD)
+       {
+           ++ch;
+           C=A;
+           A=A->next;
+       }
+    printf("\n ENTER THE NODE OF CLL WHICH YOU WANT TO DELETE:\t");
+    scanf("%d",&num);
+    if(num==1)
+    {
+        A->next=HEAD->next;
+        A=HEAD;
+        HEAD=HEAD->next;
+        free(A);
+    }
+    else if(num==(ch+1))
+    {
+        C->next=HEAD;
+        free(A);
+    }
+    else if(num>1&&num<(ch+1)){
+        A=HEAD;
+    for(i=1;i<=ch;i++)
+    {
+        if(i==num)
+        {
+            B=A->next;
+            C->next=B;
+            free(A);
+            break;
+        }
+        else
+        {
+            C=A;
+            A=A->next;
+        }
+    }
+    }
+    printf("\n CIRCULAR LINK LIST AFTER DELETION IS:-\t");
+     A=HEAD;
+       do{   
+            printf("%d\t ", A->data);  
+            A = A->next;  
+        }while(A != HEAD);  
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------

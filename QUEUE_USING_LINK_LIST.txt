@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct queue
+{
+  int data;
+  struct queue *next;
+} que;
+que *FRONT, *REAR;
+void create_queue ();
+void insert_queue ();
+void delete_queue ();
+int
+main ()
+{
+  char ch = 'y';
+  int m;
+  while (ch == 'y' || ch == 'Y')
+    {
+      printf
+	("\n ENTER THE CHOICE\n 1.CREATE QUEUE(ENTER 1) \n 2.INSERTION IN QUEUE(ENTER 2) \n 3.DELETION IN QUEUE(ENTER 3)\t");
+      scanf ("%d", &m);
+      switch (m)
+	{
+	case 1:
+	  create_queue ();
+	  printf ("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+	  scanf (" %c", &ch);
+	  break;
+	case 2:
+	  insert_queue ();
+	  printf ("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+	  scanf (" %c", &ch);
+	  break;
+	case 3:
+	  delete_queue ();
+	  printf ("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+	  scanf (" %c", &ch);
+	  break;
+	default:
+	  printf ("WRONG CHOICE!! \n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+	  scanf (" %c", &ch);
+	}
+    }
+}
+
+void
+create_queue ()
+{
+  int i;
+  que *A;
+  char ch='y';
+ 
+ while(ch=='Y'||ch=='y')
+    {
+      if (FRONT == NULL)
+	{
+	  A = (que *) malloc (sizeof (que));
+	  FRONT = A;
+	  printf ("\n ENTER THE VALUE TO BE ENTERED:-");
+	  scanf ("\t%d", &A->data);
+	  A->next = NULL;
+	  REAR = A;
+	}
+      else
+	{
+	  A = (que *) malloc (sizeof (que));
+	  REAR->next = A;
+	  REAR = A;
+	  printf ("\n ENTER THE VALUE TO BE ENTERED:-");
+	  scanf ("\t%d", &A->data);
+	  A->next = NULL;
+	}
+    printf("\n WANT TO ADD SOME MORE ELEMENTS PRESS ('y' OR 'Y'):\t");
+    scanf(" %c",&ch);
+    }
+  A = FRONT;
+  while (A != NULL)
+    {
+      printf ("\t%d", A->data);
+      A = A->next;
+    }
+}
+
+void
+insert_queue ()
+{
+  que *A;
+  A = (que *) malloc (sizeof (que));
+  printf ("\n ENTER THE VALUE TO BE INSERTED:\t");
+  scanf ("%d", &A->data);
+  printf ("\n AFTER INSERTION QUEUE BE LIKE!\n");
+  REAR->next = A;
+  REAR = A;
+  A->next = NULL;
+  A = FRONT;
+  while (A != NULL)
+    {
+      printf ("\t%d", A->data);
+      A = A->next;
+    }
+}
+void
+delete_queue()
+{
+  que *A;
+  A=FRONT;
+  FRONT=FRONT->next;
+  free(A);
+  A=FRONT;
+  printf ("\n AFTER DELETION QUEUE BE LIKE!\n");
+  while (A != NULL)
+    {
+      printf ("\t%d", A->data);
+      A = A->next;
+    }
+}

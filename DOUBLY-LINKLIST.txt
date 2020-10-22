@@ -1,0 +1,189 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+}node;
+int create_dll_linklist();
+void insert_dll_linklist();
+void delete_dll_linklist();
+int main()
+{
+    char ch='y';
+    int m;
+    while(ch=='y'||ch=='Y')
+    {
+        printf("\n ENTER THE CHOICE\n 1.CREATE DOUBLY LINKLIST(ENTER 1) \n 2.INSERTION IN DOUBLY LINKLIST(ENTER 2) \n 3.DELETION IN DOUBLY LINKLIST(ENTER 3):\t");
+        scanf("%d",&m);
+        switch(m)
+        {
+            case 1: create_dll_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            case 2: insert_dll_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            case 3: delete_dll_linklist();
+            printf("\n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+            break;
+            default: printf("WRONG CHOICE!! \n WANT ANOTHER ATTEMPT(PRESS 'Y' OR 'y')");
+            scanf("\t %c",&ch);
+        }
+    }
+}
+int create_dll_linklist()
+{
+   int i,n;
+   node *A,*HEAD=NULL,*ptr;
+   printf("ENTER THE NUMBER OF NODES TO BE CREATED FOR DOUBLY-LL:");
+   scanf("\t%d",&n);
+   for(i=1;i<=n;i++)
+   {
+       if(HEAD==NULL)
+       {
+           A=(node*)malloc(sizeof(node));
+           HEAD=A;
+           printf("\n ENTER THE VALUE TO BE ENTERED:-");
+           scanf("\t%d",&HEAD->data);
+           HEAD->next=HEAD;
+           HEAD->prev=NULL;
+           ptr=HEAD;
+       }
+       else
+       {
+           A->next=(node*)malloc(sizeof(node));
+           A=A->next;
+           printf("\n ENTER THE VALUE TO BE ENTERED:-");
+           scanf("\t%d",&A->data);
+           A->next=NULL;
+           A->prev=ptr;
+           ptr=A;
+       }
+   }
+      A=HEAD;
+       while(A!=NULL)
+       {
+           printf("\t%d",A->data);
+           A=A->next;
+       }
+        return HEAD;
+   }
+void insert_dll_linklist()
+{
+    int i,num,ch=0;
+    node *A,*HEAD,*B,*C;
+    A=create_dll_linklist();
+    HEAD=A;
+       while(A->next!=NULL)
+       {
+           ++ch;
+           A=A->next;
+       }
+        C=A;
+        A=HEAD;
+    printf("\n ENTER THE NODE WHERE YOU WANT TO INSERT:\n(for end enter number greater than node)\t");
+    scanf("%d",&num);
+    B=(node*)malloc(sizeof(node));
+    printf("\n ENTER THE VALUE TO BE STORED:-\t");
+    scanf("%d",&B->data);
+    if(num==1)
+    {
+        B->prev=NULL;
+        B->next=HEAD;
+        HEAD->prev=B;
+        HEAD=B;
+    }
+    else if(num==(ch+2))
+    {
+        C->next=B;
+        B->next=NULL;
+        B->prev=C;
+    }
+    else if(num>1&&num<(ch+2)){
+        A=HEAD;
+    for(i=1;i<=ch;i++)
+    {
+        if(i==num)
+        {
+            B->next=A;
+            B->prev=C;
+            C->next=B;
+            A->prev=B;
+            break;
+        }
+        else
+        {
+            C=A;
+            A=A->next;
+        }
+    }
+    }
+    printf("\n DOUBLY LINK LIST AFTER INSERTION IS:-\t");
+    A=HEAD;
+       while(A!=NULL)
+       {
+           printf("\t%d",A->data);
+           A=A->next;
+       }   
+}
+void delete_dll_linklist()
+{
+    int i,num,ch=0;
+    node *A,*HEAD,*B,*C;
+    A=create_dll_linklist();
+    HEAD=A;
+     while(A->next!=HEAD)
+       {
+           ++ch;
+           C=A;
+           A=A->next;
+       }
+    printf("\n ENTER THE NODE OF DOUBLY-LL WHICH YOU WANT TO DELETE:\t");
+    scanf("%d",&num);
+    if(num==1)
+    {
+        A=HEAD;
+        HEAD=HEAD->next;
+        HEAD->prev=NULL;
+        free(A);
+    }
+    else if(num==(ch+1))
+    {
+        C->next=NULL;
+        free(A);
+    }
+    else if(num>1&&num<(ch+1)){
+        A=HEAD;
+    for(i=1;i<=ch;i++)
+    {
+        if(i==num)
+        {
+            C->next=A->next;
+            B=A->next;
+            B->prev=C;
+            free(A);
+            break;
+        }
+        else
+        {
+            C=A;
+            A=A->next;
+        }
+    }
+    }
+    printf("\n DOUBLY LINK LIST AFTER DELETION IS:-\t");
+     A=HEAD;
+       while(A!=NULL)
+       {
+           printf("\t%d",A->data);
+           A=A->next;
+       } 
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------

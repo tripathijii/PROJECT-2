@@ -1,0 +1,45 @@
+#include<stdio.h>
+#define MAX 10
+int main()
+{
+    int queue[MAX],i,FRONT=0,REAR=0,n;
+    char ch='y';
+    while(ch=='y'||ch=='Y')
+    {
+    printf("\n ENTER THE NUMBER OF QUEUE ELEMENT TO BE CREATED (LESS THEN 10):");
+    scanf("%d\t",&n);
+    if(n>MAX)
+    {
+        printf("\n OVERFLOW!!");
+    }
+    else if(n==0)
+    {
+        printf("\n CAN'T CREATE QUEUE OF SIZE O!");
+    }
+    else
+    {
+        for(i=1;i<=n;i++)
+        {
+            if(FRONT==0)
+            {
+                FRONT=1;
+                REAR = REAR + i;
+            }
+            else
+            {
+                REAR += i;
+            }
+            scanf("%d",&queue[i]);
+        }
+    }
+    //display
+    for(i=FRONT;i<=REAR;i++)
+        {
+            printf("\t%d\t|",queue[i]);
+        }
+         printf("\n WANT ANOTHER TURN PRESS Y:\t");
+    scanf(" %c",&ch);
+
+    }
+    }
+
